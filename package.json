@@ -7,11 +7,15 @@
     "lint": "prettier --check \"src/**/*.{ts,js}\""
   },
   "dependencies": {
-    "canvas-confetti": "^1.2.0"
+    "canvas-confetti": "^1.2.0",
+    "d3": "^6.6.0",
+    "fabric": "^4.3.1"
   },
   "devDependencies": {
     "@snowpack/plugin-typescript": "^1.2.0",
     "@types/canvas-confetti": "^1.0.0",
+    "@types/d3": "^6.3.0",
+    "@types/fabric": "^4.2.3",
     "@types/snowpack-env": "^2.3.2",
     "prettier": "^2.0.5",
     "snowpack": "^3.0.1",
