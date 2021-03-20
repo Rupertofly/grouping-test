@@ -20,17 +20,21 @@ export class Controller {
     };
   }
   drag = (mdl: Graph) => {
+    let offset = { x: 0, y: 0 };
     function dSubject(e: d3.D3DragEvent<HTMLCanvasElement, number, number>) {
       let subject = mdl.nearestNode(e.x, e.y, 30);
       console.log(`Selected: ${subject?.i}`);
-      if (subject) subject.isDragged = true;
       return subject?.i;
     }
     function dragstart(e: d3.D3DragEvent<HTMLCanvasElement, number, number>) {
       mdl.nodes[e.subject].cell.shouldRelax = false;
+      let sbj = mdl.nodes[e.subject];
+      offset.x = sbj.x - e.x;
+      offset.y = sbj.y - e.y;
+      sbj.isDragged = true;
     }
     function dragging(e: d3.D3DragEvent<HTMLCanvasElement, number, number>) {
-      mdl.nodes[e.subject].cell.set(e.x, e.y);
+      mdl.nodes[e.subject].cell.set(e.x + offset.x, e.y + offset.y);
     }
     function draggend(e: d3.D3DragEvent<HTMLCanvasElement, number, number>) {
       mdl.nodes[e.subject].cell.shouldRelax = true;
