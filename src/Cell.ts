@@ -7,6 +7,26 @@ export class Cell {
   get y() {
     return this._graph.posArray[this.i * 2 + 1];
   }
+  get closeNode() {
+    return this._graph.closestNode[this.i];
+  }
+  get distToNode() {
+    return this._graph.DistToNode[this.i];
+  }
+  set closeNode(nodeIndex: number) {
+    this._graph.closestNode[this.i] = nodeIndex;
+  }
+  set distToNode(dist: number) {
+    this._graph.DistToNode[this.i] = dist;
+  }
+  get neighbours() {
+    return this._graph.voronoi.neighbors(this.i);
+  }
+  group() {
+    if (this.closeNode >= 0) {
+      return this._graph.nodes[this.closeNode].group;
+    } else return -1;
+  }
   set(x: number, y: number) {
     this._graph.posArray.set([x, y], this.i * 2);
     if (!this.shouldRelax) {

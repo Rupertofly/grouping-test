@@ -3,16 +3,21 @@ import * as d3 from 'd3';
 import { NODE_RADIUS } from './Constants';
 const { PI, random: rnd, floor: flr, ceil, abs, pow } = Math;
 const TAU = PI * 2;
+let i = 0;
+let regions: string[] = [];
 export class Node {
   readonly cell: Cell;
   vx: number = 0;
   vy: number = 0;
   isDragged = false;
   type = 'circle';
-  cl = d3.interpolateRainbow(Math.random());
-  scl = d3.rgb(this.cl).brighter().toString();
+  get cl() {
+    return regions[this.group];
+  }
+  scl = d3.rgb(this.cl).brighter(0.7).toString();
   i: number;
-  group = 1;
+
+  group: number;
   get x() {
     return this.cell.x;
   }
@@ -32,12 +37,15 @@ export class Node {
   get fy() {
     return this.cell.fy;
   }
-  constructor(cell: Cell, i: number) {
+  constructor(cell: Cell, i: number, regs: string[]) {
     this.cell = cell;
-    cell.region = 1;
+    cell.region = i;
+    this.group = i % 6;
+    regions = regs;
     this.i = i;
   }
   renderCtx(ctx: CanvasRenderingContext2D) {
+    this.scl = d3.rgb(this.cl).brighter(0.7).toString();
     ctx.fillStyle = this.cl;
     ctx.strokeStyle = this.scl;
     ctx.beginPath();
@@ -45,8 +53,6 @@ export class Node {
     ctx.closePath();
     ctx.fill();
     if (this.isDragged) ctx.stroke();
-    ctx.fillStyle = 'black';
-    ctx.fillText(`${this.vx.toFixed(2)},${this.vy.toFixed(2)}`, this.x, this.y);
   }
 }
 export default Node;

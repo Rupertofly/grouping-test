@@ -2,15 +2,23 @@
 # yarn lockfile v1
 
 
-"@rupertofly/h@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@rupertofly/h/-/h-2.1.0.tgz#9f28d7219f98f9042d7936183327ddf9f84f059b"
-  integrity sha512-at2o7BKLiYYIGERqJJrJ7FC5wCBc/Bca/LAlSSrgbahkJzP08Nmm4IV6kFku46CFLSo1nOm0+wUr+psS2liWMQ==
+"@rupertofly/h@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@rupertofly/h/-/h-3.0.0.tgz#75303b6e0eea1db20e650b53ca611543c7de503d"
+  integrity sha512-t8cxKBOoLAmanQsMWZBMFCH19vBxbHjWpybuEkG4UXEz3FU6PGQddQoBROhQIVLRhg6SdagaLAAs0viN+pMSew==
   dependencies:
     b-spline "^2.0.1"
     d3-array "^2.5.1"
     d3-path "^1.0.9"
     d3-polygon "^2.0.0"
+    tslib "^1.11.1"
+
+"@rupertofly/voronoi-regions@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@rupertofly/voronoi-regions/-/voronoi-regions-1.0.1.tgz#db760ea96edfcbe3348ca3001b7905eee5c9b691"
+  integrity sha512-H+6WcLUFq608It28WeESbtc7PlO2x0xuDHcgX1Yffzj8ifZCTMhT1ZzcuyMDBsB353sLkEats3tO1UaGRSvnGw==
+  dependencies:
+    d3-delaunay "^5.2.1"
     tslib "^1.11.1"
 
 "@snowpack/plugin-svelte@^3.6.0":
@@ -551,7 +559,7 @@ d3-contour@2:
   dependencies:
     d3-array "2"
 
-d3-delaunay@5:
+d3-delaunay@5, d3-delaunay@^5.2.1:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/d3-delaunay/-/d3-delaunay-5.3.0.tgz#b47f05c38f854a4e7b3cea80e0bb12e57398772d"
   integrity sha512-amALSrOllWVLaHTnDLHwMIiz0d1bBu9gZXd1FiLfXf8sHcX9jrcj81TVZOqD4UX7MgBZZ07c8GxzEgBpJqc74w==

@@ -14,7 +14,7 @@ module.exports = {
     // "bundle": true,
   },
   packageOptions: {
-    /* ... */
+    packageLookupFields: ['b-spline', '@rupertofly/h'],
   },
   devOptions: {
     /* ... */

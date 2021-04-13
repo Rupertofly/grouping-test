@@ -14,6 +14,7 @@ export class Controller {
               Math.floor(Math.random() * this.model.cells.length)
             ],
             this.model.nodes.length,
+            this.model.types,
           ),
         );
         model.forceSim.nodes(model.nodes);

@@ -7,7 +7,8 @@
     "lint": "prettier --check \"src/**/*.{ts,js}\""
   },
   "dependencies": {
-    "@rupertofly/h": "^2.1.0",
+    "@rupertofly/h": "^3.0.0",
+    "@rupertofly/voronoi-regions": "^1.0.1",
     "canvas-confetti": "^1.2.0",
     "d3": "^6.6.0",
     "fabric": "^4.3.1",

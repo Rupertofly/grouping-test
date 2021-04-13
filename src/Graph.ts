@@ -4,6 +4,8 @@ import {
   forceManyBody,
   ForceManyBody,
   forceSimulation,
+  interpolateRainbow,
+  range,
   Simulation,
   Voronoi,
 } from 'd3';
@@ -14,8 +16,11 @@ type Pt = [number, number];
 type Lp = Pt[];
 export class Graph {
   posArray: Float32Array = new Float32Array(NUM_POINTS * 2);
+  closestNode: Int16Array = new Int16Array(NUM_POINTS).fill(-1);
+  DistToNode: Int16Array = new Int16Array(NUM_POINTS).fill(256);
   cells: Cell[] = [];
   nodes: Node[] = [];
+  types: string[] = [];
   delaunay: Delaunay<number>;
   voronoi: Voronoi<number>;
   forceSim: Simulation<Node, undefined>;
@@ -33,14 +38,17 @@ export class Graph {
         Math.random() * hei,
       );
     }
+    for (let i of range(6)) {
+      this.types[i] = interpolateRainbow(i * (1 / 6));
+    }
     this.delaunay = new d3.Delaunay(this.posArray);
     this.voronoi = this.delaunay.voronoi([0, 0, this.width, this.height]);
-    this.nodes.push(new Node(this.cells[1], this.nodes.length));
-    this.nodes.push(new Node(this.cells[3], this.nodes.length));
+    this.nodes.push(new Node(this.cells[1], this.nodes.length, this.types));
+    this.nodes.push(new Node(this.cells[3], this.nodes.length, this.types));
 
     this.forceSim = forceSimulation(this.nodes);
     this.force = forceManyBody<Node>()
-      .strength(-500)
+      .strength(-100)
       .distanceMax(this.width / 4);
     this.forceSim.force('sepperate', this.force);
 
