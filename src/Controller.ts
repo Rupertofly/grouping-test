@@ -16,6 +16,7 @@ export class Controller {
             this.model.nodes.length,
           ),
         );
+        model.forceSim.nodes(model.nodes);
       }
     };
   }
@@ -35,10 +36,12 @@ export class Controller {
     }
     function dragging(e: d3.D3DragEvent<HTMLCanvasElement, number, number>) {
       mdl.nodes[e.subject].cell.set(e.x + offset.x, e.y + offset.y);
+      mdl.forceSim.alpha(1);
     }
     function draggend(e: d3.D3DragEvent<HTMLCanvasElement, number, number>) {
       mdl.nodes[e.subject].cell.shouldRelax = true;
       mdl.nodes[e.subject].isDragged = false;
+      mdl.forceSim.alpha(1);
     }
     return d3
       .drag()

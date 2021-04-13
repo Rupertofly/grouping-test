@@ -19,6 +19,7 @@ ctrl.bindDrag(canvas);
 function draw() {
   ctx.clearRect(0, 0, WID, HEI);
   graph.relax();
+  graph.tickSim();
   ctx.fillStyle = 'black';
 
   // for (let cell of graph.cells) {
@@ -32,9 +33,17 @@ function draw() {
   //   drawLoop(pg as any, true, ctx);
   //   ctx.stroke();
   // }
+  for (let pg of graph.voronoi.cellPolygons()) {
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'black';
+    ctx.beginPath();
+    drawLoop(pg as any, true, ctx);
+    ctx.stroke();
+  }
   for (let node of graph.nodes) {
     node.renderCtx(ctx);
   }
+
   frameCount++;
   window.requestAnimationFrame(draw);
 }

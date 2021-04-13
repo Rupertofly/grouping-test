@@ -5,6 +5,8 @@ const { PI, random: rnd, floor: flr, ceil, abs, pow } = Math;
 const TAU = PI * 2;
 export class Node {
   readonly cell: Cell;
+  vx: number = 0;
+  vy: number = 0;
   isDragged = false;
   type = 'circle';
   cl = d3.interpolateRainbow(Math.random());
@@ -14,8 +16,21 @@ export class Node {
   get x() {
     return this.cell.x;
   }
+  set x(x: number) {
+    this.cell.set(x, this.cell.y);
+    // if (this.vx > 0.1) console.log(this.vx);
+  }
   get y() {
     return this.cell.y;
+  }
+  set y(y: number) {
+    this.cell.set(this.cell.x, y);
+  }
+  get fx() {
+    return this.cell.fx;
+  }
+  get fy() {
+    return this.cell.fy;
   }
   constructor(cell: Cell, i: number) {
     this.cell = cell;
@@ -30,6 +45,8 @@ export class Node {
     ctx.closePath();
     ctx.fill();
     if (this.isDragged) ctx.stroke();
+    ctx.fillStyle = 'black';
+    ctx.fillText(`${this.vx.toFixed(2)},${this.vy.toFixed(2)}`, this.x, this.y);
   }
 }
 export default Node;

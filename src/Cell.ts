@@ -9,7 +9,17 @@ export class Cell {
   }
   set(x: number, y: number) {
     this._graph.posArray.set([x, y], this.i * 2);
+    if (!this.shouldRelax) {
+      this.fx = x;
+      this.fy = y;
+    } else {
+      this.fx = null;
+      this.fy = null;
+    }
   }
+  fy?: number | null = null;
+  fx?: number | null = null;
+
   readonly i: number;
   region: number = 0;
   shouldRelax = true;

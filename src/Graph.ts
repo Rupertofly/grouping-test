@@ -1,5 +1,12 @@
 import * as d3 from 'd3';
-import type { Delaunay, Voronoi } from 'd3';
+import {
+  Delaunay,
+  forceManyBody,
+  ForceManyBody,
+  forceSimulation,
+  Simulation,
+  Voronoi,
+} from 'd3';
 import { Cell } from './Cell';
 import { Node } from './Node';
 import { NUM_POINTS } from './Constants';
@@ -11,6 +18,8 @@ export class Graph {
   nodes: Node[] = [];
   delaunay: Delaunay<number>;
   voronoi: Voronoi<number>;
+  forceSim: Simulation<Node, undefined>;
+  force: ForceManyBody<Node>;
   width: number;
   height: number;
   constructor(wid: number, hei: number) {
@@ -28,6 +37,14 @@ export class Graph {
     this.voronoi = this.delaunay.voronoi([0, 0, this.width, this.height]);
     this.nodes.push(new Node(this.cells[1], this.nodes.length));
     this.nodes.push(new Node(this.cells[3], this.nodes.length));
+
+    this.forceSim = forceSimulation(this.nodes);
+    this.force = forceManyBody<Node>()
+      .strength(-500)
+      .distanceMax(this.width / 4);
+    this.forceSim.force('sepperate', this.force);
+
+    this.forceSim.stop();
   }
   nearestNode(x: number, y: number, r: number = Infinity) {
     let qt = d3
@@ -47,7 +64,7 @@ export class Graph {
     return cl;
   }
   updateDelaunay() {
-    this.delaunay = new d3.Delaunay(this.posArray);
+    this.delaunay.update();
   }
   updateVoronoi() {
     this.voronoi = this.delaunay.voronoi([0, 0, this.width, this.height]);
@@ -62,6 +79,9 @@ export class Graph {
       let [cx, cy] = d3.polygonCentroid(polygon as any);
       cell.set(cx, cy);
     }
+  }
+  tickSim() {
+    this.forceSim.tick();
   }
 }
 export default Graph;
